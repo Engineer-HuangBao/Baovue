@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-   bao22222
+    bao22222
   </div>
 </template>
 
