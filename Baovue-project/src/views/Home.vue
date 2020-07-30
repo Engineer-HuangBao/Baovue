@@ -1,7 +1,11 @@
 <template>
   <div class="home">
-    <!-- <img alt="Vue logo" src="../assets/logo.png" /> -->
-    <HelloWorld msg="123123123" />
+    <!-- <HelloWorld msg="123123123" /> -->
+      <div id="nav">
+      <router-link to="/">Home</router-link> |
+      <router-link to="/bao">About</router-link>
+    </div>
+    <router-view />
   </div>
 </template>
 

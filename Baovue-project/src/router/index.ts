@@ -8,7 +8,18 @@ const routes: Array<RouteConfig> = [
   {
     path: "/",
     name: "Home",
-    component: Home
+    component: Home,
+    children: [
+      {
+      path: "/bao",
+      name: "bao",
+      // route level code-splitting
+      // this generates a separate chunk (about.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () =>
+        import(/* webpackChunkName: "about" */ "../views/hB-functionPage/bao/bao.vue")
+      },
+    ]
   },
   {
     path: "/about",
@@ -17,8 +28,8 @@ const routes: Array<RouteConfig> = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
-  }
+      import(/* webpackChunkName: "about" */ "../views/hB-functionPage/About.vue")
+    }
 ];
 
 const router = new VueRouter({
@@ -26,5 +37,13 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 });
+
+router.beforeEach((to,from,next)=>{
+    console.log("全局前置守卫")
+    next();
+})
+router.afterEach((to,from)=>{
+    console.log("全局后置守卫")
+})
 
 export default router;
