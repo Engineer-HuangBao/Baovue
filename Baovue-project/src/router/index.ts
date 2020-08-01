@@ -1,60 +1,58 @@
 import Vue from "vue";
+import routers from "@/router/routers.ts";
 import VueRouter, { RouteConfig } from "vue-router";
-import Home from "../views/Home.vue";
-// import methodClass from "@/utils/methodClass.ts"; // 公共方法引用合集
 
 Vue.use(VueRouter);
 
 // 配置路由
 const routes: Array<RouteConfig> = [
+  // 定义登陆路由
   {
-    path: "/",
-    name: "Home",
-    component: Home,
-    children: [
-      {
-        path: "/bao",
-        name: "bao",
-        component: () => import(/**/ "../views/hB-functionPage/bao/bao.vue")
-      }
-    ]
+    path: "/login",
+    name: "login",
+    component: () => import(/* */ "@/views/publicPage/login.vue")
   },
+  // 定义丢失路由
   {
-    path: "/about",
-    name: "About",
-    component: () =>
-      import(
-        /* webpackChunkName: "about" */ "../views/hB-functionPage/About.vue"
-      )
+    path: "/404",
+    name: "404",
+    component: () => import(/* */ "@/views/publicPage/404.vue")
   }
 ];
 
+// 创建router实例
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes
 });
-// methodClass.setData('useName', '123')
+
+// 接收回调
+function dynamic(params) {
+  // addRoutes添加路由
+  router.addRoutes(params);
+}
+// 接收动态路由参数-回调参数添加上路由
+routers.fangfa(dynamic);
 
 // 路由拦截-全局前置守卫
 router.beforeEach((to, from, next) => {
-  /*黄宝*/
-  // 声明：定义字符串类型 = 存值（为什么要[|| ""]?因为string类型不能储存null，拿到的可能是null-为空时及为假-与或非）
+  /* to:准备要前往的路由！！, from:当前准备离开的路由！！, next:一定要调用该方法来 resolve 这个钩子 */
+  // 声明：定义字符串类型 = 存值（为什么要‘|| ""’?因为string类型不能储存null，拿到的可能是null-为空时及为假-与或非）
   const useData: string = localStorage.getItem("useName") || "";
   // 声明：定义数字类型 = 当前时间戳
   const time: number = new Date().getTime();
   // 声明：定义对象类型 = 将字符串转换称对象（好开心～我有对象了～！）
-  const useDataArr: string[] = JSON.parse(useData);
-
+  const useDataArr: string[] = JSON.parse(useData || "[]");
   /*黄宝*/
   // 判断是否未登陆-转跳登陆页
-  if (!useData || useDataArr["time"] < time) {
-    console.log("未登陆 || 时间超过");
+  if ((!useData || useDataArr["time"] < time) && to.name != "login") {
     localStorage.removeItem("useName");
-    // localStorage.clear();
+    // const path: string = "{ path: '/login' }"
+    next({
+      path: "/login"
+    });
   }
-
-  // console.log(to, from, next)
   next();
 });
 
