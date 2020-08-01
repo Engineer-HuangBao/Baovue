@@ -1,7 +1,7 @@
 // 全局工具方法
 export default {
   // ============================作者:黄宝=======
-  /** @简称 -> 储存localStorage--setData-
+  /** @简称 -> -储存localStorage-
     @简介 -> 
     @用法 -> this.$methodClass(key,)
     */
@@ -17,6 +17,16 @@ export default {
     });
     // 创建localStorage储存内容(key名字,内容)
     localStorage.setItem(key, data);
+  },
+  /** @简称 -> -随机生成范围数-
+  @简介 -> 随机如0 ～ 20之间的随机数
+  @用法 -> this.$methodClass(最小值,最大值)
+  */
+  randomNums(min, max) {
+    const num: number = max - min;
+    const randNum: number = Math.random();
+    const nums: number = min + Math.round(randNum * num); //四舍五入
+    return nums;
   }
   // ============================作者:黄宝=======
 };

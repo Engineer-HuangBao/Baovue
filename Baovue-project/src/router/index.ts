@@ -38,6 +38,7 @@ routers.fangfa(dynamic);
 // 路由拦截-全局前置守卫
 router.beforeEach((to, from, next) => {
   /* to:准备要前往的路由！！, from:当前准备离开的路由！！, next:一定要调用该方法来 resolve 这个钩子 */
+
   // 声明：定义字符串类型 = 存值（为什么要‘|| ""’?因为string类型不能储存null，拿到的可能是null-为空时及为假-与或非）
   const useData: string = localStorage.getItem("useName") || "";
   // 声明：定义数字类型 = 当前时间戳
