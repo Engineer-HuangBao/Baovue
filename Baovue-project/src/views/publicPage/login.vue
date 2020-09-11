@@ -1,14 +1,50 @@
 <template>
-  <div class="login" v-title data-title="登陆">
-    <div id="hB-background" @click="bao"></div>
-    <div v-if="loginShu" id="hB-login"></div>
+  <div class="login" v-title data-title="登录">
+    <div id="hB-background" @click="showlogin"></div>
+    <div v-if="loginShu" id="hB-login">
+      <div class="loginBox">
+        <!-- <div class="h1">登录</div> -->
+        <h3>登录</h3>
+        <div class="logingValue">
+          <input
+            type="text"
+            v-model="logins.usename"
+            id="usename"
+            placeholder="请输入用户名"
+            size="22"
+          />
+          <input
+            type="password"
+            v-model="logins.password"
+            id="password"
+            placeholder="请输入密码"
+            size="22"
+          />
+          <div>
+            <input type="text" placeholder="请输入验证码" size="22" />
+            <div class="yzm"><span>1</span><span>2</span></div>
+          </div>
+        </div>
+        <div class="loginBtn">
+          <span @click="bao">登录</span><span>注册</span>
+        </div>
+        <div class="loginNotes">
+          <span>-伯 客 站-</span>
+          <span>技术支持:-<a href="###">人员名单</a>-</span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
-// import methodClass from "@/utils/methodClass.ts"; // 公共方法引用合集
+import qgff from "@/utils/qgff.ts"; // 公共方法引用合集
 export default {
   data() {
     return {
+      logins: {
+        usename: "",
+        password: ""
+      },
       // 登陆页面显示与不显示
       loginShu: false,
       // 视窗宽/高度
@@ -19,6 +55,11 @@ export default {
   computed: {},
   methods: {
     bao() {
+      // console.log(1)
+      console.log(this.logins);
+    },
+    // 显示登陆界面
+    showlogin() {
       this.loginShu = true;
     },
     // 给页面生成足够的span容器
@@ -55,7 +96,7 @@ export default {
         const num = this.$qgff.randomNums(0, idnum);
         const span = document.getElementById("span" + num);
         this.productionP(true, "span" + num, span, this.scH);
-      }, this.$qgff.randomNums(30, 60));
+      }, this.$qgff.randomNums(60, 90));
     },
     // 将已经生成的代码通过更换名字来达到渐变的效果
     gradients(judge, name, span, scH, p) {
@@ -107,14 +148,17 @@ export default {
         if (datas.px > scH) {
           clearInterval(interval);
         }
-      }, this.$qgff.randomNums(20, 60));
+      }, this.$qgff.randomNums(50, 60));
     }
   },
   created() {
-    // methodClass.setData("useName", "123");
+    document.body.onselectstart = function() {
+      return false;
+    };
   },
   mounted() {
     this.$nextTick(() => {
+      qgff.setData("useName", "123");
       // 拿到视窗宽高（用来判断span标签可到达宽高）
       this.scW = document.documentElement.clientWidth;
       this.scH = document.documentElement.clientHeight;
@@ -128,6 +172,10 @@ export default {
   width: 100%;
   height: 100%;
   position: relative;
+}
+p {
+  padding: 0px;
+  margin: 0px;
 }
 #hB-background {
   overflow: hidden;
@@ -149,43 +197,122 @@ export default {
     position: relative;
     word-wrap: break-word;
     word-break: break-all;
+    font-size: 20px;
+    .hBp6 {
+      position: absolute !important;
+      color: #58bc5b;
+    }
+    .hBp5 {
+      position: absolute;
+      color: #58bc5bd6;
+    }
+    .hBp4 {
+      position: absolute;
+      color: #58bc5ba8;
+    }
+    .hBp3 {
+      position: absolute;
+      color: #58bc5b60;
+    }
+    .hBp2 {
+      position: absolute;
+      color: #58bc5b28;
+    }
+    .hBp1 {
+      position: absolute;
+      color: #58bc5b10;
+    }
   }
-}
-p {
-  padding: 0px;
-  margin: 0px;
-  font-size: 20px;
-}
-.hBp6 {
-  position: absolute !important;
-  color: #58bc5b;
-}
-.hBp5 {
-  position: absolute;
-  color: #58bc5bd6;
-}
-.hBp4 {
-  position: absolute;
-  color: #58bc5ba8;
-}
-.hBp3 {
-  position: absolute;
-  color: #58bc5b60;
-}
-.hBp2 {
-  position: absolute;
-  color: #58bc5b28;
-}
-.hBp1 {
-  position: absolute;
-  color: #58bc5b10;
 }
 #hB-login {
   width: 100%;
   height: 100%;
-  background: #dcdcdc1a;
+  background: #dcdcdc12;
   position: absolute;
   top: 0px;
   left: 0px;
+  display: flex;
+  justify-content: center;
+  .loginBox {
+    border-radius: 25px;
+    align-self: center;
+    width: 520px;
+    height: 350px;
+    background: #ffffff15;
+    color: #ffffff90;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    h3 {
+      font-size: 22px;
+      text-align: center;
+    }
+    .logingValue {
+      display: flex;
+      flex-direction: column;
+      padding: 0px 66px;
+      input {
+        margin-bottom: 22px;
+        background: #ffffff20;
+        border-radius: 8px;
+        height: 30px;
+        text-align: center;
+        border: 0px solid;
+      }
+      input:nth-child(1) {
+        color: yellow;
+      }
+      input:nth-child(2) {
+        color: blue;
+      }
+      div {
+        display: flex;
+        input {
+          width: 180px;
+          color: purple;
+          margin-right: 10px;
+        }
+        .yzm {
+          display: flex;
+          justify-content: center;
+          line-height: 30px;
+          text-align: center;
+          width: 180px;
+          margin-left: 10px;
+        }
+      }
+    }
+    .loginBtn {
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      span {
+        margin: 0px 10px;
+        display: block;
+        width: 184px;
+        height: 30px;
+        text-align: center;
+        line-height: 30px;
+        background: #ffffff25;
+        border-radius: 6px;
+      }
+    }
+    .loginNotes {
+      font-size: 16px;
+      width: 100%;
+      position: absolute;
+      left: 0px;
+      bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      span {
+        align-self: center;
+      }
+      span:nth-child(1) {
+        font-size: 22px;
+        margin-bottom: 5px;
+      }
+    }
+  }
 }
 </style>
