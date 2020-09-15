@@ -2,14 +2,20 @@
   "name": "pjV3B",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "bao": "vite --open --port 8062",
     "build": "vite build"
   },
   "dependencies": {
-    "vue": "^3.0.0-rc.1"
+    "axios": "^0.20.0",
+    "typescript": "^4.0.2",
+    "vue": "^3.0.0-rc.1",
+    "vue-router": "^4.0.0-beta.9"
   },
   "devDependencies": {
-    "vite": "^1.0.0-rc.1",
-    "@vue/compiler-sfc": "^3.0.0-rc.1"
+    "@vue/compiler-sfc": "^3.0.0-rc.1",
+    "eslint": "^7.9.0",
+    "eslint-plugin-vue": "^6.2.2",
+    "sass": "^1.26.10",
+    "vite": "^1.0.0-rc.1"
   }
 }
